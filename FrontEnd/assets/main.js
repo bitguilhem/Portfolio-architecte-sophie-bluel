@@ -1,27 +1,3 @@
-async function postData(url = "", data = {}) {
-    const response = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      //body: JSON.stringify(data),
-    });
-    return response.json();
-  }
-  
-  postData("http://localhost:5678/api/works", {
-    //"email": "sophie.bluel@test.tld",
-    //"password": "S0phie",
-    //"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…DI4fQ.2dkOL2Vz8HdgFxha2xzm1RmJjehohb8J3uHWcirGqHk"
-  }).then((data) => {
-   // console.log(data);
-  });
-
   async function postData(url = "", data = {}) {
   const response = await fetch(url, {
   method: "GET",
@@ -52,8 +28,7 @@ postData("http://localhost:5678/api/works", {
     projects.innerHTML += figure;
     typesUniques.add(data[i].category.name)
   }
-
-  console.log(typesUniques);
+  //console.log(typesUniques);
 });
 
 
@@ -80,5 +55,3 @@ function filterWorks(type) {
  // Mettre à jour le HTML avec les éléments filtrés
  
 }
- 
-
