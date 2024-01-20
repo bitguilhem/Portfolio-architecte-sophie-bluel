@@ -13,12 +13,12 @@
 
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<a href="./index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<a href="./projets.html"><li>projets</li></a>
+			<a href="./contact.html"><li>contact</li></a>
+			<a href="./login.html"><li>login</li></a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -37,12 +37,15 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
-		<p><a href="#" onclick="filterWorks('Objets')">Objets</a></p>
+		<div class="filter-zone">
+			
+		</div>
+		<!-- <p><a href="#" onclick="filterWorks('Objets')">Objets</a></p>
 		<p><a href="#" onclick="filterWorks('Appartements')">Appartements</a></p>
 		<p><a href="#" onclick="filterWorks('Hotels & restaurants')">Hotels & restaurants</a></p>
-		<p><a href="#" onclick="filterWorks('Tous')">Tous</a></p>
+		<p><a href="#" onclick="filterWorks('Tous')">Tous</a></p> -->
 		<div id="projects" class="gallery">
-			<script src="./assets/main.js"></script>
+			
 		</div>
 	</section>
 	<section id="contact">
@@ -67,5 +70,6 @@
 		</ul>
 	</nav>
 </footer>
+<script src="./assets/main.js"></script>
 </body>
 </html>
