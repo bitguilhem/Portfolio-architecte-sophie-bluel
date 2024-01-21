@@ -1,5 +1,3 @@
-
-
 async function getData(url = '', data = {}) {
   const response = await fetch(url, {
     method: 'GET',
@@ -10,27 +8,46 @@ async function getData(url = '', data = {}) {
       'Content-Type': 'application/json',
     },
     redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    //body: JSON.stringify(data),
+    referrerPolicy: 'no-referrer'
   })
   return response.json()
 }
 
+async function deleteData(url = '', data = {}) {
+  const response = await fetch(url, {
+    method: 'DELETE',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer'
+  })
+  return response.json()
+}
+
+
 getData('http://localhost:5678/api/works', {
   //"email": "sophie.bluel@test.tld",
   //"password": "S0phie",
-  //"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…DI4fQ.2dkOL2Vz8HdgFxha2xzm1RmJjehohb8J3uHWcirGqHk"
 }).then((data) => {
   let typesUniques = new Set()
   for (let i = 0; i < data.length; i++) {
     const element = data[i]
-    //console.log(element);
     const projects = document.querySelector('#projects')
     projects.innerHTML += renderCard(element)
     typesUniques.add(data[i].category.name)
-  }
 
-  console.log(typesUniques)
+    const modal = document.getElementById("images-list");
+    modal.innerHTML += renderModal(element)
+
+    let modalImage = document.getElementById(element.id);
+    modalImage.addEventListener('click', function() {
+      modalImage.parentNode.removeChild(modalImage);
+    });
+  }
 })
 
 async function init() {
@@ -69,6 +86,18 @@ function filterWorks(type) {
   // Mettre à jour le HTML avec les éléments filtrés
 }
 
+function renderModal(element) {
+  const figure2 =
+   '<span id="span' + element.id + '"><img src="' 
+   +element.imageUrl + 
+   '" alt="' +
+   element.title +
+   '" style="width: 80px"> <i id="'
+   + element.id + 
+   '" class="fas fa-trash-alt"></i></span>'
+   return figure2
+}
+
 function renderCard(element) {
   const figure =
     '<figure><img src="' +
@@ -80,5 +109,44 @@ function renderCard(element) {
     ' </figcaption></figure>'
   return figure
 }
+
+// Modal
+
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("myBtn");
+const span = document.getElementById("close");
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+const imagesList = document.getElementById ("images-list")
+imagesList.addEventListener("click", function(event) {
+  if (event.target.classList.contains('fa-trash-alt')) {
+    const id = event.target.id 
+    deleteData ('http://localhost:5678/api/works/' + id, {}).then ((data) =>{
+      console.log(data)
+      // const spanId = 'span' + event.target.getAttribute('id');
+      // const span = document.getElementById(spanId)
+      // if (span) {
+      // imagesList.removeChild(span)
+      // }
+    })
+    
+   
+  }
+})
+
+
 
 init();
