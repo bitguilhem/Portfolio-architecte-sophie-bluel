@@ -14,17 +14,15 @@ async function getData(url = '', data = {}) {
 }
 
 async function deleteData(url = '', data = {}) {
+  const token = localStorage.getItem ('accessToken')
+  console.log(token)
   const response = await fetch(url, {
     method: 'DELETE',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwNjE5NzI0OCwiZXhwIjoxNzA2MjgzNjQ4fQ.u0pc7mEEonc_WRYmdoxLGatMlfYx4XLYYisN5K2gm1E'
+      'authorization': `Bearer ${token}`,
     },
   })
-  return response.json()
 }
 
 
@@ -43,7 +41,7 @@ getData('http://localhost:5678/api/works', {
     modal.innerHTML += renderModal(element)
 
     let modalImage = document.getElementById(element.id);
-    modalImage.addEventListener('click', function() {
+    modalImage.addEventListener('click', function() { 
       modalImage.parentNode.removeChild(modalImage);
     });
   }
@@ -142,29 +140,28 @@ imagesList.addEventListener("click", function(event) {
       // imagesList.removeChild(span)
       // }
     })
+ 
+// localStorage.setItem('accessToken', token);
 
-var token = "VOTRE_JETON";  
-localStorage.setItem('accessToken', token);
+// const url = 'http://localhost:5678/api/works';
 
-const url = 'http://localhost:5678/api/works';
-
-fetch(url, {
-    method: 'DELETE',
-    headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-        'Content-Type': 'application/json'
-    },
-})
-.then(response => {
-    if (!response.ok) {
-        throw new Error('Erreur de suppression');
-    }
-    return response.json();
-})
-.then(data => {
-    console.log(data);
-})
-.catch(error => console.error('Erreur:', error));
+// fetch(url, {
+//     method: 'DELETE',
+//     headers: {
+//         'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+//         'Content-Type': 'application/json'
+//     },
+// })
+// .then(response => {
+//     if (!response.ok) {
+//         throw new Error('Erreur de suppression');
+//     }
+//     return response.json();
+// })
+// .then(data => {
+//     console.log(data);
+// })
+// .catch(error => console.error('Erreur:', error));
   
 }
 })

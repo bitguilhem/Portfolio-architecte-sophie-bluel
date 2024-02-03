@@ -29,6 +29,7 @@ button.addEventListener('click', function(event) {
   if (data.token) {
     //console.log(data.token)
     localStorage.setItem('accessToken', data.token); 
+    console.log(localStorage)
     document.location.href="./index.html";
   } else {
     alert("Identifiant invalide. Veuillez fournir un identifiant valide.")
