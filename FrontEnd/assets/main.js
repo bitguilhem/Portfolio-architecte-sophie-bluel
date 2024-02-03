@@ -21,9 +21,8 @@ async function deleteData(url = '', data = {}) {
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcwNjE5NzI0OCwiZXhwIjoxNzA2MjgzNjQ4fQ.u0pc7mEEonc_WRYmdoxLGatMlfYx4XLYYisN5K2gm1E'
     },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
   })
   return response.json()
 }
@@ -135,6 +134,7 @@ imagesList.addEventListener("click", function(event) {
   if (event.target.classList.contains('fa-trash-alt')) {
     const id = event.target.id 
     deleteData ('http://localhost:5678/api/works/' + id, {}).then ((data) =>{
+      
       console.log(data)
       // const spanId = 'span' + event.target.getAttribute('id');
       // const span = document.getElementById(spanId)
@@ -142,11 +142,31 @@ imagesList.addEventListener("click", function(event) {
       // imagesList.removeChild(span)
       // }
     })
-    
-   
-  }
+
+var token = "VOTRE_JETON";  
+localStorage.setItem('accessToken', token);
+
+const url = 'http://localhost:5678/api/works';
+
+fetch(url, {
+    method: 'DELETE',
+    headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
+    },
 })
-
-
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Erreur de suppression');
+    }
+    return response.json();
+})
+.then(data => {
+    console.log(data);
+})
+.catch(error => console.error('Erreur:', error));
+  
+}
+})
 
 init();
