@@ -139,31 +139,50 @@ imagesList.addEventListener("click", function(event) {
       // if (span) {
       // imagesList.removeChild(span)
       // }
+
+      
     })
- 
-// localStorage.setItem('accessToken', token);
-
-// const url = 'http://localhost:5678/api/works';
-
-// fetch(url, {
-//     method: 'DELETE',
-//     headers: {
-//         'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-//         'Content-Type': 'application/json'
-//     },
-// })
-// .then(response => {
-//     if (!response.ok) {
-//         throw new Error('Erreur de suppression');
-//     }
-//     return response.json();
-// })
-// .then(data => {
-//     console.log(data);
-// })
-// .catch(error => console.error('Erreur:', error));
   
 }
 })
+
+
+// Fonction pour supprimer une image côté serveur
+function deleteImageOnServer(imageId) {
+  const apiUrl = 'http://localhost:5678/api/images/' + imageId;
+
+  fetch(apiUrl, {
+      method: 'DELETE',
+      headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json'
+      },
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Erreur de suppression côté serveur');
+      }
+      return response.json();
+  })
+  .then(data => {
+      console.log('Suppression côté serveur réussie:', data);
+
+      // Une fois la suppression côté serveur réussie, supprimer l'image côté client
+      deleteImageOnClient(imageId);
+  })
+  .catch(error => console.error('Erreur côté serveur:', error));
+}
+
+// Fonction pour supprimer une image côté client
+function deleteImageOnClient(imageId) {
+  // Supprimez l'élément côté client en utilisant l'ID de l'image
+  var imageElement = document.getElementById(imageId);
+  if (imageElement) {
+      imageElement.parentNode.removeChild(imageElement);
+      console.log('Suppression côté client réussie');
+  } else {
+      console.warn('L\'élément côté client n\'a pas été trouvé.');
+  }
+}
 
 init();
