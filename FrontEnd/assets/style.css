@@ -208,7 +208,7 @@ footer nav ul {
 	width: 80%; 
   }
   
-  #close {
+  #close, .close {
 	color: #aaa;
 	float: right;
 	font-size: 28px;

@@ -185,4 +185,19 @@ function deleteImageOnClient(imageId) {
   }
 }
 
+// Modal ajout photo
+const btnAddWork = document.querySelector (".btn-add-work")
+const modal2 = document.getElementById("myModal2");
+
+btnAddWork.addEventListener ("click", function(event) {
+  const modal = document.getElementById("myModal");
+  modal.style.display = 'none';
+  modal2.showModal();
+})
+
+const closeBtn = document.querySelector (".close")
+closeBtn.addEventListener ("click", function(event) {
+    modal2.style.display = 'none';
+})
+
 init();
