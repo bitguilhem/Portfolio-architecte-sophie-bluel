@@ -200,4 +200,57 @@ closeBtn.addEventListener ("click", function(event) {
     modal2.style.display = 'none';
 })
 
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const fileInput = document.getElementById('fileInput');
+  const imageContainer = document.getElementById('imageContainer');
+  const imageTitle = document.getElementById('imageTitle');
+  const categoryDropdown = document.getElementById('categoryDropdown');
+  const selectedCategory = document.getElementById('selectedCategory');
+  const fileInputLabel = document.getElementById('fileInputLabel');
+
+  fileInput.addEventListener('change', function () {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function () {
+          const img = new Image();
+          img.src = reader.result;
+          img.onload = function () {
+              imageContainer.innerHTML = '';
+              imageContainer.appendChild(img);
+          };
+      };
+
+      if (file) {
+          reader.readAsDataURL(file);
+          fileInputLabel.textContent = file.name; // Met à jour le libellé du bouton avec le nom du fichier sélectionné
+      }
+  });
+
+  categoryDropdown.addEventListener('change', function () {
+      const selectedOption = categoryDropdown.options[categoryDropdown.selectedIndex];
+      selectedCategory.textContent = `Catégorie sélectionnée : ${selectedOption.textContent}`;
+  });
+
+  // Code pour récupérer les catégories depuis une API prédéfinie
+  fetch('votre_api_categories')
+      .then(response => response.json())
+      .then(data => {
+          data.forEach(category => {
+              const option = document.createElement('option');
+              option.textContent = category;
+              categoryDropdown.appendChild(option);
+          });
+      })
+      .catch(error => console.error('Erreur lors de la récupération des catégories :', error));
+});
+
+
+
 init();

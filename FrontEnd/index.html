@@ -52,10 +52,21 @@
 	
 		<dialog id="myModal2" class="modal2">
 			<div class="modal-content">
+				<h1>Ajout photo</h1>
 				<span class="close">&times;</span>
-				<h1>Hello world</h1>
-				<h3>titre</h3>
-				<h3>catégorie</h3>
+				<div id="container">
+					<label for="fileInput" id="fileInputLabel" class="custom-file-upload">
+						Ajouter une photo
+					</label>
+					<input type="file" id="fileInput">
+					<p>jpg, png : 4mo max</p>
+				</div>
+				<div id="imageContainer">
+					<h3>titre</h3>
+        			<input type="text" id="imageTitle" placeholder="Titre">
+					<h3>catégorie</h3>
+        			<select id="categoryDropdown"></select>
+				</div>
 				<button class="btn-validation">Valider</button>
 			</div>
 		</dialog>
